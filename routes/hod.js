@@ -23,6 +23,7 @@ router.post(
     body("password").notEmpty(),
   ],
   async (req, res) => {
+
     const result = validationResult(req);
     if (result.isEmpty()) {
       const salt = bcrypt.genSaltSync(10);
@@ -36,7 +37,7 @@ router.post(
         college: req.body.college,
         hodEmail: req.body.hodEmail,
         password: hash,
-        profile: null
+        profile: "imageurl"
       });
       const getHod = await Hod.findOne({ rollNo: req.body.email });
       if (getHod) return res.send({ msg: "Already exits" }); // chack by   this way also
